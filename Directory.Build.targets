@@ -1,0 +1,75 @@
+<Project>
+
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference
+      Include="Microsoft.NETFramework.ReferenceAssemblies"
+      PrivateAssets="all"
+      Version="1.0.2"
+    />
+  </ItemGroup>
+
+  <Target Name="AddGeneratedFile" BeforeTargets="AfterClean;BeforeBuild;BeforeRebuild;BeforeCompile;CoreCompile;BeforeResGen;BeforeResolveReference"
+      Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)BepPluginInfo.cs">
+
+    <PropertyGroup>
+      <BepPluginGuid Condition="'$(BepPluginGuid)' == ''">$(AssemblyName)</BepPluginGuid>
+      <BepPluginName Condition="'$(BepPluginName)' == ''">$(Product)</BepPluginName>
+      <BepPluginTsTeam Condition  ="'$(BepPluginTsTeam)' == ''">$(TsTeam)</BepPluginTsTeam>
+      <BepPluginVersion Condition="'$(BepPluginVersion)' == ''">$(Version)</BepPluginVersion>
+      <GeneratedText><![CDATA[
+internal static class BepPluginInfo
+{
+  public const string PLUGIN_GUID = "$(BepPluginGuid)"%3B
+  public const string PLUGIN_NAME = "$(BepPluginName)"%3B
+  public const string PLUGIN_TS_TEAM = "$(BepPluginTsTeam)"%3B
+  public const string PLUGIN_VERSION = "$(BepPluginVersion)"%3B
+}
+]]></GeneratedText>
+      <GeneratedFilePath>$(IntermediateOutputPath)BepPluginInfo.cs</GeneratedFilePath>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Include="$(GeneratedFilePath)" />
+      <FileWrites Include="$(GeneratedFilePath)" />
+    </ItemGroup>
+
+    <WriteLinesToFile Lines="$(GeneratedText)" File="$(GeneratedFilePath)"
+        WriteOnlyWhenDifferent="true" Overwrite="true" />
+
+  </Target>
+
+  <Target Name="DownloadLethalConfig" Condition="!Exists('$(SolutionDir)/libs/LethalConfig/LethalConfig.zip')">
+    <DownloadFile
+      SourceUrl="https://thunderstore.io/package/download/AinaVT/LethalConfig/1.4.6/"
+      DestinationFolder="$(SolutionDir)/libs/LethalConfig/"
+      DestinationFileName="LethalConfig.zip"
+    />
+  </Target>
+
+  <Target Name="FetchLethalConfig" Condition="!Exists('$(SolutionDir)/libs/LethalConfig/LethalConfig.dll')">
+    <CallTarget Targets="DownloadLethalConfig;" />
+    <MakeDir
+      Directories="$(SolutionDir)/libs/LethalConfig/LethalConfigPackage"
+    />
+    <Unzip
+      SourceFiles="$(SolutionDir)/libs/LethalConfig/LethalConfig.zip"
+      DestinationFolder="$(SolutionDir)/libs/LethalConfig/LethalConfigPackage"
+    />
+    <Move
+      SourceFiles="$(SolutionDir)/libs/LethalConfig/LethalConfigPackage/plugins/LethalConfig/LethalConfig.dll"
+      DestinationFolder="$(SolutionDir)/libs/LethalConfig/"
+    />
+    <RemoveDir
+      Directories="$(SolutionDir)/libs/LethalConfig/LethalConfigPackage"
+    />
+
+    <Delete
+      Files="$(SolutionDir)/libs/LethalConfig/LethalConfig.zip"
+    />
+  </Target>
+
+  <Target Name="FetchNeededAssemblies" BeforeTargets="AfterClean;BeforeBuild;BeforeRebuild;BeforeCompile;CoreCompile;BeforeResGen;BeforeResolveReference">
+    <CallTarget Targets="FetchLethalConfig;" />
+  </Target>
+  
+</Project>

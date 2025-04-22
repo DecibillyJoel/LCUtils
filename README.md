@@ -1,2 +1,2 @@
 # LCUtils
- Compilation of utils specific to Lethal Company
+A compilation of utils specific to Lethal Company
