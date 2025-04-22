@@ -11,7 +11,7 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <PublishProfile>$(SolutionDir)/Properties/PublishProfiles/Thunderstore.pubxml</PublishProfile>
+    <PublishProfile>Thunderstore</PublishProfile>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
