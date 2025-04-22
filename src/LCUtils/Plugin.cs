@@ -6,6 +6,7 @@ using LogLevel = BepInEx.Logging.LogLevel;
 namespace LCUtils;
 
 [BepInPlugin(BepPluginInfo.PLUGIN_GUID, $"{BepPluginInfo.PLUGIN_TS_TEAM}.{BepPluginInfo.PLUGIN_NAME}", BepPluginInfo.PLUGIN_VERSION)]
+[BepInDependency(LethalConfigNicerizer.LethalConfig_GUID, BepInDependency.DependencyFlags.SoftDependency)]
 
 public class Plugin : BaseUnityPlugin
 {
