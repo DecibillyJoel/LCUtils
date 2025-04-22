@@ -47,7 +47,8 @@
   <ItemGroup>
     <PackageReference 
       Include="Xilophor.StaticNetcodeLib" 
-      Version="1.1.1" 
+      Version="1.1.1"
+      PrivateAssets="all" 
     />
   </ItemGroup>
 
