@@ -3,6 +3,7 @@
 ## v1.0.3  
 - Made public consts for plugin info  
 - Added BepInEx soft dependency to Lethal Config  
+- Fixed LethalConfigNicerizer making duplicate pages in Lethal Config  
  
 ## v1.0.2  
 - Fixed StaticNetcodeLib being included in the build output  
