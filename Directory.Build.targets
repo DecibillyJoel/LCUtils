@@ -8,7 +8,7 @@
     />
   </ItemGroup>
 
-  <Target Name="AddGeneratedFile" BeforeTargets="AfterClean;BeforeBuild;BeforeRebuild;BeforeCompile;CoreCompile;BeforeResGen;BeforeResolveReference"
+  <Target Name="AddGeneratedFile" BeforeTargets="AfterClean;BeforeBuild;BeforeCompile;CoreCompile;BeforeResolveReference"
       Inputs="$(MSBuildAllProjects)" Outputs="$(IntermediateOutputPath)BepPluginInfo.cs">
 
     <PropertyGroup>
@@ -68,7 +68,7 @@ internal static class BepPluginInfo
     />
   </Target>
 
-  <Target Name="FetchNeededAssemblies" BeforeTargets="AfterClean;BeforeBuild;BeforeRebuild;BeforeCompile;CoreCompile;BeforeResGen;BeforeResolveReference">
+  <Target Name="FetchNeededAssemblies" BeforeTargets="AfterClean;BeforeBuild;BeforeCompile;CoreCompile;BeforeResolveReference">
     <CallTarget Targets="FetchLethalConfig;" />
   </Target>
   
