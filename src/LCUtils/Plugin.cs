@@ -9,6 +9,11 @@ namespace LCUtils;
 
 public class Plugin : BaseUnityPlugin
 {
+    public const string PLUGIN_GUID = BepPluginInfo.PLUGIN_GUID;
+    public const string PLUGIN_NAME = BepPluginInfo.PLUGIN_NAME;
+    public const string PLUGIN_VERSION = BepPluginInfo.PLUGIN_VERSION;
+    public const string PLUGIN_TS_TEAM = BepPluginInfo.PLUGIN_TS_TEAM;
+
     public static ManualLogSource PluginLogger = null!;
 
     public static void Log(LogLevel logLevel, string logMessage)
@@ -24,6 +29,6 @@ public class Plugin : BaseUnityPlugin
     private void Awake()
     {
         PluginLogger = Logger;
-        Log($"[v{BepPluginInfo.PLUGIN_VERSION}] Finished loading!");
+        Log($"[v{PLUGIN_VERSION}] Finished loading!");
     }
 }
