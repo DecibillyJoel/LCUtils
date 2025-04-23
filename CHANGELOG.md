@@ -1,5 +1,9 @@
 # CHANGELOG  
   
+## v1.0.5  
+  
+- Added argument validation to BlendedRandom()
+  
 ## v1.0.4  
   
 - Added BlendedRandom() class which blends between two Random sources  
