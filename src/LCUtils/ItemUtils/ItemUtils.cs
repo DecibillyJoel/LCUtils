@@ -25,7 +25,7 @@ public static class ItemUtils
             {
                 foundAny = true;
 
-                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (Vanilla: {newItem.IsVanillaItem()}) (Assembly FullName: {newItem.spawnPrefab?.GetType()?.Assembly?.FullName}) (Assembly Name: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.Name}) (Assembly Version: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.Version}) (Assembly Culture: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.CultureInfo}) (Assembly PublicKeyToken: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.GetPublicKeyToken()})");
+                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (Vanilla: {newItem.IsVanillaItem()}) (Assembly FullName: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.FullName}) (Assembly Name: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.Name}) (Assembly Version: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.Version}) (Assembly Culture: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.CultureInfo}) (Assembly PublicKeyToken: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.GetPublicKeyToken()})");
                 AllItems.Add(newItem);
                 NewItemFound?.Invoke(newItem);
             }
@@ -52,7 +52,7 @@ public static class ItemUtils
     {
         if (item == null) return "";
         
-        return $"{item.name} ('{item.GetNodeText()}')";
+        return $"{item.name} ({item.GetNodeText()})".Replace("\r", " ").Replace("\n", " ").Replace("\\", "/").Replace("\"", "|").Replace("\'", "|").Replace("[", "{").Replace("]", "}");
     }
 
     // Item.LooselyEquals(OtherItem);
