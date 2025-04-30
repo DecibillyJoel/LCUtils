@@ -20,7 +20,7 @@ public static class ItemUtils
 
         // StartOfRound.Instance.allItemsList.itemsList.DoIf(
         Resources.FindObjectsOfTypeAll<Item>().DoIf(
-            newItem => newItem != null && newItem.spawnPrefab != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
+            newItem => newItem != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
             newItem =>
             {
                 foundAny = true;
