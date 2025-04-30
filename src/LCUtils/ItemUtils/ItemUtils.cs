@@ -20,12 +20,12 @@ public static class ItemUtils
 
         // StartOfRound.Instance.allItemsList.itemsList.DoIf(
         Resources.FindObjectsOfTypeAll<Item>().DoIf(
-            newItem => newItem != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
+            newItem => newItem != null && newItem.spawnPrefab != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
             newItem =>
             {
                 foundAny = true;
 
-                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (Vanilla: {newItem.IsVanillaItem()}) (Assembly FullName: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.FullName}) (Assembly Name: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.Name}) (Assembly Version: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.Version}) (Assembly Culture: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.CultureInfo}) (Assembly PublicKeyToken: {newItem.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.GetPublicKeyToken()})");
+                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (IsVanillaItem(): {newItem.IsVanillaItem()})");
                 AllItems.Add(newItem);
                 NewItemFound?.Invoke(newItem);
             }
@@ -43,9 +43,10 @@ public static class ItemUtils
         };
     }
 
-    public static string GetNodeText(this Item? item)
+    public static string GetNodeText(this Item? item, bool returnNameIfEmpty = true)
     {
-        return item?.spawnPrefab?.GetComponentInChildren<ScanNodeProperties>()?.headerText ?? "";
+        string headerText = item?.spawnPrefab?.GetComponentInChildren<ScanNodeProperties>()?.headerText ?? "";
+        return headerText != "" ? headerText : (returnNameIfEmpty ? item?.name ?? "" : "");
     }
 
     public static string GetConfigName(this Item? item)
