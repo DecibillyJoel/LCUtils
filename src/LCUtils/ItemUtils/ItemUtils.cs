@@ -48,8 +48,8 @@ public static class ItemUtils
         return $"{item.name} ('{item.GetNodeText()}')";
     }
 
-    // Item.Equals(OtherItem);
-    public static bool Equals(this Item? item, Item? otherItem)
+    // Item.LooselyEquals(OtherItem);
+    public static bool LooselyEquals(this Item? item, Item? otherItem)
     {
         // Check if items are the same reference
         if (item == otherItem) return true;
