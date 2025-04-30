@@ -11,9 +11,7 @@ public static class LethalConfigNicerizer
 {
     internal const string LethalConfig_GUID = "ainavt.lc.lethalconfig";
 
-	public static bool CanHasNicerizationPlease {
-        get => Chainloader.PluginInfos.ContainsKey(LethalConfig_GUID);
-    }
+	public static bool CanHasNicerizationPlease => Chainloader.PluginInfos.ContainsKey(LethalConfig_GUID);
 
 	[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
 	public static ConfigEntry<T> Nicerize<T>(ConfigEntry<T> entry, bool restartRequired = false, Assembly? callingAssembly = null)
