@@ -14,18 +14,24 @@ public static class ItemUtils
     public static List<Item> AllItems {get; private set;} = [];
     public static event UnityAction<Item>? NewItemFound;
 
-    public static void UpdateAllItems()
+    public static bool UpdateAllItems()
     {
+        var foundAny = false;
+
         //Resources.FindObjectsOfTypeAll<Item>().DoIf(
         StartOfRound.Instance.allItemsList.itemsList.DoIf(
             newItem => newItem != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
             newItem =>
             {
+                foundAny = true;
+
                 Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (Vanilla: {newItem.IsVanillaItem()}) (Assembly FullName: {newItem.spawnPrefab?.GetType()?.Assembly?.FullName}) (Assembly Name: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.Name}) (Assembly Version: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.Version}) (Assembly Culture: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.CultureInfo}) (Assembly PublicKeyToken: {newItem.spawnPrefab?.GetType()?.Assembly?.GetName()?.GetPublicKeyToken()})");
                 AllItems.Add(newItem);
                 NewItemFound?.Invoke(newItem);
             }
         );
+
+        return foundAny;
     }
 
     // Register event handler for SceneManager.activeSceneChanged
