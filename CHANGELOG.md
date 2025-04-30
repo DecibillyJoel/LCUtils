@@ -5,6 +5,7 @@
 - Improved file structure  
 - Added ConfigUtils for accessing orphaned entries  
 - Added ItemUtils for tracking items and checking equality  
+- Added SpawnableScrapUtils for tracking currently spawnable scrap  
   
 ## v1.0.5  
   
