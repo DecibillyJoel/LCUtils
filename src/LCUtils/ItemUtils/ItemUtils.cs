@@ -16,7 +16,8 @@ public static class ItemUtils
 
     public static void UpdateAllItems()
     {
-        Resources.FindObjectsOfTypeAll<Item>().DoIf(
+        //Resources.FindObjectsOfTypeAll<Item>().DoIf(
+        StartOfRound.Instance.allItemsList.itemsList.DoIf(
             newItem => newItem != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
             newItem =>
             {
