@@ -1,5 +1,11 @@
 # CHANGELOG  
   
+## v1.0.6  
+  
+- Improved file structure  
+- Added ConfigUtils for accessing orphaned entries  
+- Added ItemUtils for tracking items and checking equality  
+  
 ## v1.0.5  
   
 - Added argument validation to BlendedRandom()
