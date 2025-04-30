@@ -8,13 +8,12 @@ using ILUtils;
 using ILUtils.HarmonyXtensions;
 
 namespace LCUtils;
-
 public static class SpawnableScrapUtils
 {
-    [HarmonyPatch(nameof(RoundManager.SpawnScrapInLevel))]
+    [HarmonyPatch(typeof(RoundManager), nameof(RoundManager.SpawnScrapInLevel))]
     [HarmonyPriority(priority: int.MinValue)]
     [HarmonyReversePatch(HarmonyReversePatchType.Snapshot)]
-    private static List<SpawnableItemWithRarity>? GetSpawnableScrap()
+    public static List<SpawnableItemWithRarity>? GetSpawnableScrap()
     {
         IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> methodIL, ILGenerator methodGenerator, MethodBase methodBase)
         {
@@ -29,16 +28,18 @@ public static class SpawnableScrapUtils
             List<CodeInstruction> SpawnableScrapIL = stepper.GetIL(
                 startIndex: stepper.FindIL(ILPatterns.NextEmptyStack(startSize: -1), reverse: true,  errorMessage: "[ItemUtils.SpawnableScrapUtils.GetSpawnableScrap] Spawnable Scrap List (this.currentLevel.spawnableScrap) not found)")
             )
-            .Select(code => code.Clone()).ToList();
+            // Change "this" to RoundManager.Instance
+            .Select(code => !code.IsLdarg(0) ? code : CodeInstructionPolyfills.LoadProperty(type: typeof(RoundManager), name: nameof(RoundManager.Instance)))
+            .ToList();
 
-            return stepper.Instructions;
+            return SpawnableScrapIL;
         }
 
         _ = Transpiler(null!, null!, null!);
         return null;
     }
 
-    public static List<SpawnableItemWithRarity> GetSpawnableScrapSafely()
+    public static List<SpawnableItemWithRarity> GetSpawnableScrapOrDefault()
     {
         List<SpawnableItemWithRarity>? spawnableScrap = GetSpawnableScrap();
         if (spawnableScrap != null && spawnableScrap.Count > 0) return spawnableScrap;
