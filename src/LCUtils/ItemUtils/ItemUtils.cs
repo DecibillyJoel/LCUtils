@@ -25,7 +25,7 @@ public static class ItemUtils
             {
                 foundAny = true;
 
-                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (GetUserFriendlyAssemblyName(): {newItem.GetUserFriendlyAssemblyName()}) (IsVanillaItem(): {newItem.IsVanillaItem()})");
+                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()}");
                 AllItems.Add(newItem);
                 NewItemFound?.Invoke(newItem);
             }
@@ -53,7 +53,7 @@ public static class ItemUtils
     {
         if (item == null) return "";
         
-        return $"{item.name} ({item.GetNodeText()})".Replace("\r", " ").Replace("\n", " ").Replace("\\", "/").Replace("\"", "|").Replace("\'", "|").Replace("[", "{").Replace("]", "}");
+        return $"{item.GetNodeText()} ({item.GetUserFriendlyAssemblyName()}.{item.name})".Replace("\r", " ").Replace("\n", " ").Replace("\\", "/").Replace("\"", "|").Replace("\'", "|").Replace("[", "{").Replace("]", "}");
     }
 
     // Item.LooselyEquals(OtherItem);
