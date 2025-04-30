@@ -48,6 +48,7 @@ public static class ItemUtils
         return $"{item.name} ('{item.GetNodeText()}')";
     }
 
+    // Item.Equals(OtherItem);
     public static bool Equals(this Item? item, Item? otherItem)
     {
         // Check if items are the same reference
