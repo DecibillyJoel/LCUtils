@@ -18,8 +18,8 @@ public static class ItemUtils
     {
         var foundAny = false;
 
-        //Resources.FindObjectsOfTypeAll<Item>().DoIf(
-        StartOfRound.Instance.allItemsList.itemsList.DoIf(
+        // StartOfRound.Instance.allItemsList.itemsList.DoIf(
+        Resources.FindObjectsOfTypeAll<Item>().DoIf(
             newItem => newItem != null && !AllItems.Any(item => item.GetConfigName() == newItem.GetConfigName()), 
             newItem =>
             {
