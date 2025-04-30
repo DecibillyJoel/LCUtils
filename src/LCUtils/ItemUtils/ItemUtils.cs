@@ -25,7 +25,7 @@ public static class ItemUtils
             {
                 foundAny = true;
 
-                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (IsVanillaItem(): {newItem.IsVanillaItem()})");
+                Plugin.Log(LogLevel.Debug, $"Registering item: {newItem.GetConfigName()} (GetUserFriendlyAssemblyName(): {newItem.GetUserFriendlyAssemblyName()}) (IsVanillaItem(): {newItem.IsVanillaItem()})");
                 AllItems.Add(newItem);
                 NewItemFound?.Invoke(newItem);
             }
@@ -73,9 +73,21 @@ public static class ItemUtils
         return item.spawnPrefab == otherItem.spawnPrefab;
     }
 
-    public static bool IsVanillaItem(this Item item)
+    public static string GetUserFriendlyAssemblyName(this Item? item)
     {
-        return item?.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName()?.Name == "Assembly-CSharp";
+        string assemblyName = item?.spawnPrefab?.GetComponent<GrabbableObject>()?.GetType()?.Assembly?.GetName().Name ?? "";
+
+        return assemblyName switch
+        {
+            "" => "Unknown",
+            "Assembly-CSharp" or "Assembly-CSharp-firstpass" => "Vanilla",
+            _ => $"Mods.{assemblyName}",
+        };
+    }
+
+    public static bool IsVanillaItem(this Item? item)
+    {
+        return item.GetUserFriendlyAssemblyName() == "Vanilla";
     }
 
     public static void RegisterItemHandler(Action<Item> itemHandler)
