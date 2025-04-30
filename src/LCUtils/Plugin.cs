@@ -1,6 +1,7 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using BepInEx.Logging;
-
+using HarmonyLib;
 using LogLevel = BepInEx.Logging.LogLevel;
 
 namespace LCUtils;
@@ -16,6 +17,7 @@ public class Plugin : BaseUnityPlugin
     public const string PLUGIN_TS_TEAM = BepPluginInfo.PLUGIN_TS_TEAM;
 
     public static ManualLogSource PluginLogger = null!;
+    internal static readonly Harmony harmony = new($"{BepPluginInfo.PLUGIN_TS_TEAM}.{BepPluginInfo.PLUGIN_NAME}");
 
     public static void Log(LogLevel logLevel, string logMessage)
     {
@@ -31,5 +33,14 @@ public class Plugin : BaseUnityPlugin
     {
         PluginLogger = Logger;
         Log($"[v{PLUGIN_VERSION}] Finished loading!");
+
+        Log(LogLevel.Debug, "Patching...");
+        try{
+            harmony.PatchAll();
+        } catch (Exception e) {
+            Log(LogLevel.Error, $"Patching failed! Unpatching! Exception:\n{e}");
+            
+            harmony.UnpatchSelf();
+        }
     }
 }

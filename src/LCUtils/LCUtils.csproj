@@ -47,6 +47,9 @@
   <ItemGroup>
     <Reference Include="LethalConfig" HintPath="$(SolutionDir)/libs/LethalConfig/LethalConfig.dll" Publicize="true" Private="false" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ILUtils" HintPath="$(SolutionDir)/libs/ILUtils/ILUtils.dll" Private="false" />
+  </ItemGroup>
 
   <!--
     Don't mess with anything below this line, it is required to build via 

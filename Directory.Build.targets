@@ -68,8 +68,16 @@ internal static class BepPluginInfo
     />
   </Target>
 
-  <Target Name="FetchNeededAssemblies" BeforeTargets="AfterClean;BeforeBuild;BeforeCompile;CoreCompile;BeforeResolveReference">
-    <CallTarget Targets="FetchLethalConfig;" />
+  <Target Name="DownloadILUtils" Condition="!Exists('$(SolutionDir)/libs/ILUtils/ILUtils.dll')">
+    <DownloadFile
+      SourceUrl="https://github.com/DecibillyJoel/ILUtils/releases/latest/download/ILUtils.dll"
+      DestinationFolder="$(SolutionDir)/libs/ILUtils/"
+      DestinationFileName="ILUtils.dll"
+    />
+  </Target>
+
+  <Target Name="FetchNeededAssemblies" AfterTargets="AfterClean;" BeforeTargets="BeforeBuild;BeforeRebuild;BeforeCompile;BeforeResolveReference;">
+    <CallTarget Targets="DownloadILUtils;FetchLethalConfig" />
   </Target>
   
 </Project>
