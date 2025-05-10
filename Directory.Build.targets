@@ -38,11 +38,18 @@ internal static class BepPluginInfo
 
   </Target>
 
-  <Target Name="CleanThunderstoreArtifacts" AfterTargets="Clean;">
+  <Target Name="CleanThunderstoreArtifacts" AfterTargets="Clean;" Condition="'$(SolutionDir)' == '$(MSBuildThisFileDirectory)'">
     <RemoveDir Directories="$(SolutionDir)\artifacts\tspublish\build" />
     <MakeDir Directories="$(SolutionDir)\artifacts\tspublish\build" />
     <RemoveDir Directories="$(SolutionDir)\artifacts\tspublish\dist" />
     <MakeDir Directories="$(SolutionDir)\artifacts\tspublish\dist" />
+  </Target>
+
+  <Target Name="MakeLibDebugTSPublish" AfterTargets="Publish;" Condition="'$(SolutionDir)' == '$(MSBuildThisFileDirectory)' And '$(Configuration)' == 'Debug'">
+    <ItemGroup>
+      <LibsToBuild Include="$(SolutionDir)\libs\**\*.csproj" />
+    </ItemGroup>
+    <Exec Command='dotnet publish "%(LibsToBuild.FullPath)" -c Debug -p:TCLI_Verb=build -p:GenerateFullPaths=true -p:SolutionDir="$(SolutionDir)\." -p:TCLI_PackageDir="$(SolutionDir)\libs\%(LibsToBuild.Filename)\" -v m'/>
   </Target>
 
   <Target Name="DownloadLethalConfig" Condition="!Exists('$(SolutionDir)/libs/LethalConfig/LethalConfig.zip')">
