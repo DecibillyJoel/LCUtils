@@ -16,6 +16,7 @@ public class Plugin : BaseUnityPlugin
     public const string PLUGIN_VERSION = BepPluginInfo.PLUGIN_VERSION;
     public const string PLUGIN_TS_TEAM = BepPluginInfo.PLUGIN_TS_TEAM;
 
+    public static Plugin Instance {get; private set;} = null!;
     public static ManualLogSource PluginLogger = null!;
     internal static readonly Harmony harmony = new($"{BepPluginInfo.PLUGIN_TS_TEAM}.{BepPluginInfo.PLUGIN_NAME}");
 
@@ -31,7 +32,9 @@ public class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
+        Instance = this;
         PluginLogger = Logger;
+        
         Log($"[v{PLUGIN_VERSION}] Finished loading!");
 
         Log(LogLevel.Debug, "Patching...");
