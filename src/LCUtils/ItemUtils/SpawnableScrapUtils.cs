@@ -12,17 +12,20 @@ namespace LCUtils;
 [HarmonyPatch(typeof(RoundManager))]
 public static class SpawnableScrapUtils
 {
-    public static Dictionary<PersistentItemReference, int> SpawnableScrap { get; private set; } = [];
+    public static Dictionary<PersistentItemReference, int> ItemRefRarities { get; private set; } = [];
+    public static List<SpawnableItemWithRarity> SpawnableScrapList {get; private set;} = [];
     public static event UnityAction? SpawnableScrapUpdated;
 
     private static void UpdateSpawnableScrap(List<SpawnableItemWithRarity> spawnableScrapList)
     {
-        SpawnableScrap.Clear();
-        spawnableScrapList.Do(newSpawnableItem => {
+        SpawnableScrapList = spawnableScrapList;
+
+        ItemRefRarities.Clear();
+        SpawnableScrapList.Do(newSpawnableItem => {
             PersistentItemReference? itemRef = newSpawnableItem.spawnableItem?.GetPersistentReference();
             if (itemRef == null) return;
 
-            SpawnableScrap.Add(itemRef, newSpawnableItem.rarity);
+            ItemRefRarities.Add(itemRef, newSpawnableItem.rarity);
         });
         SpawnableScrapUpdated?.Invoke();
     }
