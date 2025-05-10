@@ -14,7 +14,7 @@ public static class Probability
 			return -1;
 		}
 
-        weights = weights.Select(weight => Math.Clamp(weight, 0.0, int.MaxValue)).ToList();
+        weights = weights.Select(weight => Math.Clamp(weight, 0.0, int.MaxValue).IfNaNThen(0)).ToList();
         random ??= new();
 
         double totalWeight = weights.Sum();
@@ -38,7 +38,7 @@ public static class Probability
 			return null;
 		}
 
-        List<(double weight, (double key, T value) pair)> weightedPairs = weightedDict.Select(pair => (Math.Clamp(pair.Key, 0.0, int.MaxValue), (pair.Key, pair.Value))).ToList();
+        List<(double weight, (double key, T value) pair)> weightedPairs = weightedDict.Select(pair => Math.Clamp(pair.Key, 0.0, int.MaxValue).IfNaNThen(0), (pair.Key, pair.Value))).ToList();
         random ??= new();
 
         double totalWeight = weightedPairs.Sum(weightedPair => weightedPair.weight);
@@ -57,7 +57,7 @@ public static class Probability
 			return null;
 		}
 
-        List<(double weight, (T key, double value) pair)> weightedPairs = weightedDict.Select(pair => (Math.Clamp(pair.Value, 0.0, int.MaxValue), (pair.Key, pair.Value))).ToList();
+        List<(double weight, (T key, double value) pair)> weightedPairs = weightedDict.Select(pair => Math.Clamp(pair.Value, 0.0, int.MaxValue).IfNanThen(0), (pair.Key, pair.Value))).ToList();
         random ??= new();
 
         double totalWeight = weightedPairs.Sum(weightedPair => weightedPair.weight);
