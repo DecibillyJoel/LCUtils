@@ -27,15 +27,15 @@ public static class SpawnableScrapUtils
         // Early return if item is null / destroyed
         if (item == null) return 0;
 
-        return Math.Max(0, SpawnableScrapList.FirstOrDefault<SpawnableItemWithRarity?>(scrapWithRarity => scrapWithRarity != null && item.LooselyEquals(scrapWithRarity.spawnableItem))?.rarity ?? 0);
+        return Math.Max(0, SpawnableScrapList.Sum(itemWithRarity => ((itemWithRarity != null) && item.LooselyEquals(itemWithRarity.spawnableItem)) ? itemWithRarity.rarity : 0));
     }
 
     public static int GetRarity(this PersistentItemReference? itemRef)
     {
         // Early return if item is null / destroyed
-        if (itemRef == null || itemRef.Item == null) return 0;
+        if (itemRef == null) return 0;
 
-        return Math.Max(0, SpawnableScrapList.FirstOrDefault<SpawnableItemWithRarity?>(scrapWithRarity => scrapWithRarity != null && itemRef.LooselyEquals(scrapWithRarity.spawnableItem))?.rarity ?? 0);
+       return itemRef.Item.GetRarity();
     }
 
     [HarmonyPatch(nameof(RoundManager.SpawnScrapInLevel))]
