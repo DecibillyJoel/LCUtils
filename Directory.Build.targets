@@ -38,13 +38,22 @@ internal static class BepPluginInfo
 
   </Target>
 
-  <Target Name="CleanThunderstoreArtifacts" AfterTargets="Clean;" Condition="'$(SolutionDir)' == '$(MSBuildThisFileDirectory)'">
-    <RemoveDir Directories="$(SolutionDir)\artifacts\tspublish\build" />
-    <MakeDir Directories="$(SolutionDir)\artifacts\tspublish\build" />
-    <RemoveDir Directories="$(SolutionDir)\artifacts\tspublish\dist" />
-    <MakeDir Directories="$(SolutionDir)\artifacts\tspublish\dist" />
+  <Target Name="CleanThunderstoreArtifacts" AfterTargets="Clean;">
+    <RemoveDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\build" />
+    <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\build" />
     <WriteLinesToFile 
-      File="$(SolutionDir)\artifacts\tspublish\dist\plugins\.gitkeep" 
+      File="$(MSBuildThisFileDirectory)\artifacts\tspublish\build\.gitkeep" 
+    />
+    <RemoveDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\meta" />
+    <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\meta" />
+    <WriteLinesToFile 
+      File="$(MSBuildThisFileDirectory)\artifacts\tspublish\meta\.gitkeep" 
+    />
+    <RemoveDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist" />
+    <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist" />
+    <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist\plugins" />
+    <WriteLinesToFile 
+      File="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist\plugins\.gitkeep" 
     />
   </Target>
 
