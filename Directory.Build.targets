@@ -43,6 +43,9 @@ internal static class BepPluginInfo
     <MakeDir Directories="$(SolutionDir)\artifacts\tspublish\build" />
     <RemoveDir Directories="$(SolutionDir)\artifacts\tspublish\dist" />
     <MakeDir Directories="$(SolutionDir)\artifacts\tspublish\dist" />
+    <WriteLinesToFile 
+      File="$(SolutionDir)\artifacts\tspublish\dist\plugins\.gitkeep" 
+    />
   </Target>
 
   <Target Name="MakeLibDebugTSPublish" AfterTargets="Publish;" Condition="'$(SolutionDir)' == '$(MSBuildThisFileDirectory)' And '$(Configuration)' == 'Debug'">
