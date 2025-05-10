@@ -18,6 +18,12 @@ public static class ItemUtils
 
     internal static void RegisterItem(Item? newItem)
     {
+        // Skip if item is null / destroyed
+        if (newItem == null) return;
+
+        // Add item to AllItems
+        AllItems.Add(newItem);
+
         // Skip if item reference cannot be made
         PersistentItemReference? newItemReference = newItem.GetPersistentReference();
         if (newItemReference == null) return;
