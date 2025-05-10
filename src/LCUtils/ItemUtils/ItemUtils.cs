@@ -140,4 +140,14 @@ public static class ItemConstructorPatches
     {
         Plugin.Instance.StartCoroutine(RegisterItemWithDelay(__instance));
     }
+
+    [HarmonyCleanup]
+    public static void PatchingDone(MethodBase? orig)
+    {
+        // If orig is not null, it's not actually done
+        if (orig != null) return;
+
+        // Ensure no items skip registration
+        ItemUtils.RegisterAllItems();
+    }
 }
