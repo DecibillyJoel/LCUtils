@@ -25,9 +25,9 @@
 #same folder as this TOML file as your icon. Please replace the icon with
 #something prettier! You do not need to modify these settings!
 [build]
-  icon  ="./dist/icon.png"
+  icon  ="./icon.png"
   outdir="./build"
-  readme="./dist/README.md"
+  readme="./../../README.md"
 
   [[build.copy]]
     source="./dist"

@@ -223,8 +223,6 @@ node_modules/
 # End of https://www.toptal.com/developers/gitignore/api/csharp
 artifacts/tspublish/build/*
 artifacts/tspublish/build/**/*
-artifacts/tspublish/meta/*
-artifacts/tspublish/meta/**/*
 artifacts/tspublish/dist/*
 artifacts/tspublish/dist/**/*
 !artifacts/tspublish/dist/plugins

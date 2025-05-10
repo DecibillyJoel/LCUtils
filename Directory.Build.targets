@@ -44,11 +44,6 @@ internal static class BepPluginInfo
     <WriteLinesToFile 
       File="$(MSBuildThisFileDirectory)\artifacts\tspublish\build\.gitkeep" 
     />
-    <RemoveDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\meta" />
-    <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\meta" />
-    <WriteLinesToFile 
-      File="$(MSBuildThisFileDirectory)\artifacts\tspublish\meta\.gitkeep" 
-    />
     <RemoveDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist" />
     <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist" />
     <MakeDir Directories="$(MSBuildThisFileDirectory)\artifacts\tspublish\dist\plugins" />
@@ -61,7 +56,7 @@ internal static class BepPluginInfo
     <ItemGroup>
       <LibsToBuild Include="$(SolutionDir)\libs\**\*.csproj" />
     </ItemGroup>
-    <Exec Command='dotnet publish "%(LibsToBuild.FullPath)" -c Debug -p:TCLI_Verb=build -p:GenerateFullPaths=true -p:SolutionDir="$(SolutionDir)\." -p:TCLI_PackageDir="$(SolutionDir)\libs\%(LibsToBuild.Filename)\" -v m'/>
+    <Exec Command='dotnet publish "%(LibsToBuild.FullPath)" -c Debug -p:TCLI_Verb=build -p:GenerateFullPaths=true -p:SolutionDir="$(SolutionDir)\." -p:TCLI_PackageDir="$(SolutionDir)\libs\%(LibsToBuild.Filename)\." -v m'/>
   </Target>
 
   <Target Name="DownloadLethalConfig" Condition="!Exists('$(SolutionDir)/libs/LethalConfig/LethalConfig.zip')">
