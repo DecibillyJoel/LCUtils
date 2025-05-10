@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,22 +13,29 @@ namespace LCUtils;
 [HarmonyPatch(typeof(RoundManager))]
 public static class SpawnableScrapUtils
 {
-    public static Dictionary<PersistentItemReference, int> ItemRefRarities { get; private set; } = [];
     public static List<SpawnableItemWithRarity> SpawnableScrapList {get; private set;} = [];
     public static event UnityAction? SpawnableScrapUpdated;
 
     private static void UpdateSpawnableScrap(List<SpawnableItemWithRarity> spawnableScrapList)
     {
         SpawnableScrapList = spawnableScrapList;
-
-        ItemRefRarities.Clear();
-        SpawnableScrapList.Do(newSpawnableItem => {
-            PersistentItemReference? itemRef = newSpawnableItem.spawnableItem?.GetPersistentReference();
-            if (itemRef == null) return;
-
-            ItemRefRarities.Add(itemRef, newSpawnableItem.rarity);
-        });
         SpawnableScrapUpdated?.Invoke();
+    }
+
+    public static int GetRarity(this Item? item)
+    {
+        // Early return if item is null / destroyed
+        if (item == null) return 0;
+
+        return Math.Max(0, SpawnableScrapList.FirstOrDefault<SpawnableItemWithRarity?>(scrapWithRarity => scrapWithRarity != null && item.LooselyEquals(scrapWithRarity.spawnableItem))?.rarity ?? 0);
+    }
+
+    public static int GetRarity(this PersistentItemReference? itemRef)
+    {
+        // Early return if item is null / destroyed
+        if (itemRef == null || itemRef.Item == null) return 0;
+
+        return Math.Max(0, SpawnableScrapList.FirstOrDefault<SpawnableItemWithRarity?>(scrapWithRarity => scrapWithRarity != null && itemRef.LooselyEquals(scrapWithRarity.spawnableItem))?.rarity ?? 0);
     }
 
     [HarmonyPatch(nameof(RoundManager.SpawnScrapInLevel))]
