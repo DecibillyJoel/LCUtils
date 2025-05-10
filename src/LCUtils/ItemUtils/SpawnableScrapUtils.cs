@@ -13,7 +13,7 @@ namespace LCUtils;
 public static class SpawnableScrapUtils
 {
     public static Dictionary<PersistentItemReference, int> SpawnableScrap { get; private set; } = [];
-    public static event UnityAction<Dictionary<PersistentItemReference, int>>? SpawnableScrapUpdated;
+    public static event UnityAction? SpawnableScrapUpdated;
 
     private static void UpdateSpawnableScrap(List<SpawnableItemWithRarity> spawnableScrapList)
     {
@@ -24,7 +24,7 @@ public static class SpawnableScrapUtils
 
             SpawnableScrap.Add(itemRef, newSpawnableItem.rarity);
         });
-        SpawnableScrapUpdated?.Invoke(SpawnableScrap);
+        SpawnableScrapUpdated?.Invoke();
     }
 
     [HarmonyPatch(nameof(RoundManager.SpawnScrapInLevel))]
