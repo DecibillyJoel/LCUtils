@@ -379,6 +379,9 @@
         "type": "Transitive",
         "resolved": "2022.3.9",
         "contentHash": "sSxqZjd05U0NWlX+eappdlsEuXFvDRHkUaClDVTocGRzCmIwNvgGJIPh22lGklIpNZ3cJZneYJkIUnEIazR8VA=="
+      },
+      "com.github.decibillyjoel.ILUtils": {
+        "type": "Project"
       }
     }
   }

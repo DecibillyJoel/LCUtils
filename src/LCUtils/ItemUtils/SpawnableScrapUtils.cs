@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using BepInEx.Logging;
 using HarmonyLib;
 using ILUtils;
 using ILUtils.HarmonyXtensions;
@@ -14,13 +12,18 @@ namespace LCUtils;
 [HarmonyPatch(typeof(RoundManager))]
 public static class SpawnableScrapUtils
 {
-    public static List<SpawnableItemWithRarity> SpawnableScrap { get; private set; } = RoundManager.Instance?.currentLevel?.spawnableScrap?.ToList() ?? [];
-    public static event UnityAction<List<SpawnableItemWithRarity>>? SpawnableScrapUpdated;
+    public static Dictionary<PersistentItemReference, int> SpawnableScrap { get; private set; } = [];
+    public static event UnityAction<Dictionary<PersistentItemReference, int>>? SpawnableScrapUpdated;
 
-    private static void UpdateSpawnableScrap(List<SpawnableItemWithRarity> spawnableScrap)
+    private static void UpdateSpawnableScrap(List<SpawnableItemWithRarity> spawnableScrapList)
     {
         SpawnableScrap.Clear();
-        SpawnableScrap.AddRange(spawnableScrap);
+        spawnableScrapList.Do(newSpawnableItem => {
+            PersistentItemReference? itemRef = newSpawnableItem.spawnableItem?.GetPersistentReference();
+            if (itemRef == null) return;
+
+            SpawnableScrap.Add(itemRef, newSpawnableItem.rarity);
+        });
         SpawnableScrapUpdated?.Invoke(SpawnableScrap);
     }
 

@@ -4,12 +4,13 @@
   
 - Improved file structure  
 - Added ConfigUtils for accessing orphaned entries  
-- Added ItemUtils for tracking items and checking equality  
+- Added PersistentItemReference and ItemUtils for referencing items in configs and in gameplay systems   
 - Added SpawnableScrapUtils for tracking currently spawnable scrap  
+- Added LCUtils_Preloader for patching in needed Unity MonoBehaviour methods (e.g. Awake(), Start(), etc.)  
   
 ## v1.0.5  
   
-- Added argument validation to BlendedRandom()
+- Added argument validation to BlendedRandom()  
   
 ## v1.0.4  
   
