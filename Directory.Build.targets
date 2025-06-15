@@ -1,5 +1,5 @@
 <Project>
-  <!--
+  <!-- 
     Targets for source C# projects
   -->
 
@@ -40,5 +40,4 @@ internal static class LCMProjectInfo
         WriteOnlyWhenDifferent="true" Overwrite="true" />
 
   </Target>
-  
 </Project>
