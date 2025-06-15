@@ -7,7 +7,7 @@
     <PackageDesc>A compilation of utils specific to Lethal Company</PackageDesc>
     <PackageGUID>com.github.decibillyjoel.LCUtils</PackageGUID>
     <PackageUrl>https://github.com/DecibillyJoel/LCUtils</PackageUrl>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.6</PackageVersion>
     <PackageVersion Condition="'$(PACKAGE_VERSION)' != ''">$(PACKAGE_VERSION)</PackageVersion>
     <IsTSPackager>False</IsTSPackager>
   </PropertyGroup>
