@@ -6,8 +6,8 @@ using HarmonyLib;
 namespace LCUtils;
 
 /*
-  Here are some basic resources on code style and naming conventions to help
-  you in your first CSharp plugin!
+  Here are some basic resources on code style and naming 
+  conventions to help you in your first CSharp plugin!
 
   https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
   https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names
@@ -20,7 +20,9 @@ public class Plugin : BaseUnityPlugin
 {
   #region Plugin Info
     /*
-      Here, we make the plugin instance and info accessible anywhere
+      Here, we make the plugin instance and info accessible anywhere.
+      The GUID, name, etc. are inherited from a static class that is
+      auto generated using properties set in Directory.Build.props
     */
     
     public static Plugin Instance { get; private set; } = null!;
