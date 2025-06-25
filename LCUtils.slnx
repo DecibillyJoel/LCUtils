@@ -10,6 +10,5 @@
     <File Path="docs/icon.png" />
   </Folder>
   <Project Path="src/ThunderstorePackager/ThunderstorePackager.csproj" />
-  <Folder Name="/Libraries/" />
-  <Project Path="src/LCMPublishingTemplate/LCMPublishingTemplate.csproj" />
+  <Project Path="src/LCUtils/LCUtils.csproj" />
 </Solution>
