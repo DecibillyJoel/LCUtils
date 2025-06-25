@@ -49,5 +49,7 @@
       NuGet Example: <PackageReference Include="BepInEx.Core" Version="5.4.21" PrivateAssets="all" />
       Thunderstore Example: <PackageReference Include="Evaisa-LethalLib" Version="0.16.1" PrivateAssets="all" />
     -->
+    <ProjectReference Include="$(PackageDir)lib\ILUtils\src\ILUtils\ILUtils.csproj" Private="false" />
+    <PackageReference Include="AinaVT-LethalConfig" Version="1.4.6" PrivateAssets="all" />
   </ItemGroup>
 </Project>
