@@ -1,8 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!-- 
       $(MSBuildProjectName) = this .csproj filename (without the extension)
       $(PackageName) and other TS package props are defined in Directory.Build.props
+      
       You shouldn't have to change these, but you could if you wanted to.
     -->
     <Product>$(MSBuildProjectName)</Product>
@@ -48,8 +49,5 @@
       NuGet Example: <PackageReference Include="BepInEx.Core" Version="5.4.21" PrivateAssets="all" />
       Thunderstore Example: <PackageReference Include="Evaisa-LethalLib" Version="0.16.1" PrivateAssets="all" />
     -->
-
-    <ProjectReference Include="$(PackageDir)lib\ILUtils\src\ILUtils\ILUtils.csproj" Private="false" />
-    <PackageReference Include="AinaVT-LethalConfig" Version="1.4.6" PrivateAssets="all" />
   </ItemGroup>
 </Project>
